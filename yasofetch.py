@@ -4,17 +4,15 @@ import psutil
 from uptime import uptime
 import subprocess
 import shutil
+import distro_logo
 
-#will be remade in the future update btw :D
-art = [
-    "      /\\        ",
-    "     /  \\       ",
-    "    /    \\      ",
-    "   /      \\     ",
-    "  /   ,,   \\    ",
-    " /   |  |   \\   ",
-    "/_-''    ''-_\\  "
-]
+
+# The logo is automatically detected based on your distro. You can:
+# - Change the distro name to update the logo
+# - Add your own custom logo by creating a new entry in the distro_logo dictionary
+
+distro_define = str(distro.name())
+art = distro_logo.DISTRO_ARTS[distro_define.lower()]
 
 
 
@@ -63,9 +61,11 @@ ram_used_gb = round(psutil.virtual_memory().used / (1024**3), 2)
 #uptime
 uptime_str = f"{minutes}m" if days == 0 and hours == 0 else f"{hours}h, {minutes}m" if days == 0 else f"{days}d, {hours}h, {minutes}m"
 
-print(os.getenv('USER'))
+#shell
+user_shell = os.environ.get('SHELL')
 
-
+#WM (DE)
+WM = os.environ.get('XDG_CURRENT_DESKTOP')
 
 output_msg = (
     f""
@@ -78,8 +78,12 @@ output_msg = (
     f"{art[6]} ram:    {ram_used_gb}gb / {ram_gygabytes}gb \n"
     f""
 
+    #here is the additional thing, which you can print
+
     #Kernel: {platform.uname().release}"
     #host:   {socket.gethostname()}
+    #shell:  {os.path.basename(user_shell)}
+    #WM:     {WM}
 )
 
 print(output_msg)
