@@ -1,5 +1,4 @@
 import distro
-import socket
 import os
 import psutil
 from uptime import uptime
@@ -64,10 +63,14 @@ ram_used_gb = round(psutil.virtual_memory().used / (1024**3), 2)
 #uptime
 uptime_str = f"{minutes}m" if days == 0 and hours == 0 else f"{hours}h, {minutes}m" if days == 0 else f"{days}d, {hours}h, {minutes}m"
 
+print(os.getenv('USER'))
+
+
+
 output_msg = (
     f""
-    f"{art[0]} os:     {distro.name()} \n"
-    f"{art[1]} host:   {socket.gethostname()} \n"
+    f"{art[0]} {os.getenv('USER')}@{distro.name()} \n"
+    f"{art[1]} os:     {distro.name()} \n"
     f"{art[2]} gpu:    {gpu_name}\n"
     f"{art[3]} cpu:    {result.split('\n')[0].strip()} \n"
     f"{art[4]} uptime: {uptime_str} \n"
@@ -76,5 +79,7 @@ output_msg = (
     f""
 
     #Kernel: {platform.uname().release}"
+    #host:   {socket.gethostname()}
 )
+
 print(output_msg)
