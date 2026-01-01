@@ -9,8 +9,6 @@ import distro_logo
 # The logo is automatically detected based on your distro. You can:
 # - Change the distro name to update the logo
 # - Add your own custom logo by creating a new entry in the distro_logo dictionary
-distro_define = str(distro.name())
-art = distro_logo.DISTRO_ARTS["artix"] #here change "distro_define.lower()" to name which you wanna see
 
 ##collor
 class Colors:
@@ -67,7 +65,8 @@ DISTRO_COLORS = {
 }
 
 # The logo is automatically detected based on your distro
-distro_id = str(distro.id()).lower()
+
+distro_id = str(distro.id()).lower() #here change "distro.id()" to name which you wanna see
 art = distro_logo.DISTRO_ARTS[distro_id]
 logo_color = DISTRO_COLORS.get(distro_id, Colors.CYAN)
 
@@ -123,6 +122,8 @@ user_shell = os.environ.get('SHELL')
 
 #WM (DE)
 WM = os.environ.get('XDG_CURRENT_DESKTOP')
+
+
 output_msg = (
     f""
     f"{logo_color}{art[0]}{Colors.RESET} {Colors.BOLD}{Colors.CYAN}{os.getenv('USER')}{Colors.WHITE}@{Colors.CYAN}{distro.name()}{Colors.RESET}\n"
