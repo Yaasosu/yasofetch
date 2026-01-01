@@ -139,6 +139,7 @@ output_msg = (
     #host:   {socket.gethostname()}
     #shell:  {os.path.basename(user_shell)}
     #WM:     {WM}
+    #disk:   {used_gb:.2f} GB | {total_gb:.2f}
 )
 
 print(output_msg)
