@@ -23,6 +23,10 @@ Disadvantages:
       or
       wget -qO- https://raw.githubusercontent.com/Yaasosu/yasofetch/main/install.sh | sh
 
+What if i have "PEP 668: externally-managed-environment"
+it is mean that you don't have some library
+
+      python3 -m pip install --user distro psutil uptime
 
 ### Installation (manually)
 
