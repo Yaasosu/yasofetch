@@ -48,7 +48,7 @@ after that it is depend on your shell
 That's all! after that you can type `yasofetch` (my example):
 
 ```text
-      /\           yaso@EndeavourOS
+       /\          yaso@EndeavourOS
      //  \\        os:     EndeavourOS
     //    \ \      gpu:    GeForce GTX 980 Ti
    / /      _) )   cpu:    AMD Ryzen 5 5600 6-Core Processor
