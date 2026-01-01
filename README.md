@@ -17,8 +17,14 @@ Disadvantages:
       Small list of distros
       
       There may be bugs with the color scheme
+##Installation (auto)
+      
+      curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/install.sh | sh
+      or
+      wget -qO- https://raw.githubusercontent.com/Yaasosu/yasofetch/main/install.sh | sh
 
-## Installation
+
+### Installation (manually)
 
 1) Clone the repository
 2) cd yasofetch
