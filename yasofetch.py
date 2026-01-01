@@ -67,10 +67,9 @@ DISTRO_COLORS = {
 }
 
 # The logo is automatically detected based on your distro
-distro_define = str(distro.name())
-distro_lower = distro_define.lower()
-art = distro_logo.DISTRO_ARTS[distro_lower]
-logo_color = DISTRO_COLORS.get(distro_lower, Colors.CYAN)
+distro_id = str(distro.id()).lower()
+art = distro_logo.DISTRO_ARTS[distro_id]
+logo_color = DISTRO_COLORS.get(distro_id, Colors.CYAN)
 
 
 #processor
