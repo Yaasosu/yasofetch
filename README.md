@@ -17,7 +17,7 @@ Disadvantages:
       Small list of distros
       
       There may be bugs with the color scheme
-##Installation (auto)
+## Installation (auto)
       
       curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/install.sh | sh
       or
