@@ -1,30 +1,29 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-APP_NAME="yasofetch"
-INSTALL_DIR="$HOME/.local/share/$APP_NAME"
-BIN_DIR="$HOME/.local/bin"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+EXECUTABLE="yasofetch"
+INSTALL_DIR="/usr/local/bin"
 
-echo "▶ Installing $APP_NAME..."
+echo "🔨 Assembling: $EXECUTABLE..."
+echo "   Project: $PROJECT_DIR"
+echo "   Installing: $INSTALL_DIR/$EXECUTABLE"
+echo ""
 
-mkdir -p "$INSTALL_DIR"
-mkdir -p "$BIN_DIR"
+cd "$PROJECT_DIR"
 
-curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/yasofetch.py \
-  -o "$INSTALL_DIR/yasofetch.py"
+# Очистка (если нужна)
+# make clean
 
-curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/distro_logo.py \
-  -o "$INSTALL_DIR/distro_logo.py"
+# Сборка
+make -j"$(nproc)"
 
-python3 -m pip install --user distro psutil uptime
+# Установка
+echo ""
+echo "🚀 Installing (maybe need for sudo)..."
+sudo cp "$EXECUTABLE" "$INSTALL_DIR/$EXECUTABLE"
+sudo chmod +x "$INSTALL_DIR/$EXECUTABLE"
 
-cat > "$BIN_DIR/yasofetch" <<EOF
-#!/bin/sh
-python3 "$INSTALL_DIR/yasofetch.py"
-EOF
-
-chmod +x "$BIN_DIR/yasofetch"
-
-echo "✔ Installed successfully!"
-echo "👉 Run: yasofetch"
+echo ""
+echo "✅ Succesfull! you can run yasofetch!: $EXECUTABLE"
