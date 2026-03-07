@@ -1,5 +1,6 @@
 <img width="608" height="273" alt="image" src="https://github.com/user-attachments/assets/9af01f2f-1d7a-46a1-98ef-263e1a2c3c50" />
 
+
 ## 📦 Installation
 
 Follow these steps to install the program:
@@ -29,6 +30,11 @@ Follow these steps to install the program:
 5. Done — the program is now installed!
 (can be bug with logo)
 
+---
+> ### ⚠️ Warning
+> There may be issues with some **init systems** (e.g. `sysvinit`, `s6`) and certain **distributions** (e.g. Manjaro).
+> On affected systems, you may need to **compile the fetch manually**.
+> Some bugs are possible on unsupported configurations.
 ---
 
 ## ⚙️ Available Functions
@@ -61,8 +67,5 @@ src/
 inc/
 └── distro_arts.h             # Distro logos and color customization
 ```
-
-> To customize the logo or colors, edit `inc/distro_arts.h`.
-
 ---
 
