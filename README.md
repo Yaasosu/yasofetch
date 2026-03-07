@@ -35,8 +35,13 @@ Follow these steps to install the program:
 > There may be issues with some **init systems** (e.g. `sysvinit`, `s6`) and certain **distributions** (e.g. Manjaro).
 > On affected systems, you may need to **compile the fetch manually**.
 > Some bugs are possible on unsupported configurations.
----
 
+How to delete
+---
+```sh
+sudo rm /usr/local/bin/yasofetch
+```
+---
 ## ⚙️ Available Functions
 
 | Function | Description |
