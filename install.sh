@@ -1,30 +1,25 @@
-#!/bin/sh
+#!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" || exit 1
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+SCRIPT_PATH="$SCRIPT_DIR/venv/bin/python $SCRIPT_DIR/yasofetch.py"
+  if [[ "$SHELL" == *"fish"* ]]; then
 
-set -e
+  # Fish
+  mkdir -p ~/.config/fish/functions
+  echo "function fetchPy; $SCRIPT_PATH; end" > ~/.config/fish/functions/fetchPy.fish
+  elif [ -f "$HOME/.zshrc" ]; then
 
-APP_NAME="yasofetch"
-INSTALL_DIR="$HOME/.local/share/$APP_NAME"
-BIN_DIR="$HOME/.local/bin"
+  # Zsh
+  echo "alias fetchPy='$SCRIPT_PATH'" >> ~/.zshrc
+  source ~/.zshrc
+  else
 
-echo "▶ Installing $APP_NAME..."
+  # Bash
+  echo "alias fetchPy='$SCRIPT_PATH'" >> ~/.bashrc
+  source ~/.bashrc
 
-mkdir -p "$INSTALL_DIR"
-mkdir -p "$BIN_DIR"
-
-curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/yasofetch.py \
-  -o "$INSTALL_DIR/yasofetch.py"
-
-curl -fsSL https://raw.githubusercontent.com/Yaasosu/yasofetch/main/distro_logo.py \
-  -o "$INSTALL_DIR/distro_logo.py"
-
-python3 -m pip install --user distro psutil uptime
-
-cat > "$BIN_DIR/yasofetch" <<EOF
-#!/bin/sh
-python3 "$INSTALL_DIR/yasofetch.py"
-EOF
-
-chmod +x "$BIN_DIR/yasofetch"
-
-echo "✔ Installed successfully!"
-echo "👉 Run: yasofetch"
+fi
+echo "Готово! Теперь просто запускай: fetchPy"

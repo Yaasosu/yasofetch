@@ -126,7 +126,7 @@ WM = os.environ.get('XDG_CURRENT_DESKTOP')
 
 output_msg = (
     f""
-    f"{logo_color}{art[0]}{Colors.RESET} {Colors.BOLD}{Colors.CYAN}{os.getenv('USER')}{Colors.WHITE}@{Colors.CYAN}{distro.name()}{Colors.RESET}\n"
+    f"{logo_color}{art[0]}{Colors.RESET} {Colors.BOLD}{Colors.BLUE}{os.getenv('USER')}{Colors.BLUE}@{Colors.BLUE}{distro.name()}{Colors.RESET}\n"
     f"{logo_color}{art[1]}{Colors.RESET} {Colors.BOLD}{Colors.BLUE}os:{Colors.RESET}     {distro.name()}\n"
     f"{logo_color}{art[2]}{Colors.RESET} {Colors.BOLD}{Colors.BLUE}gpu:{Colors.RESET}    {gpu_name}\n"
     f"{logo_color}{art[3]}{Colors.RESET} {Colors.BOLD}{Colors.BLUE}cpu:{Colors.RESET}    {result.split(chr(10))[0].strip()}\n"
