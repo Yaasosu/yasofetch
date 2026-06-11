@@ -14,7 +14,6 @@ echo "========================================"
 
 # --- 1. Detect OS distribution and install system dependencies ---
 echo "[*] Detecting OS distribution..."
-
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     DISTRO=$ID
@@ -27,45 +26,45 @@ fi
 # Group package managers using logical "OR" (|)
 case $DISTRO in
     debian|ubuntu|linuxmint|pop|kali|elementary|zorin|deepin|mx)
-        echo "[*] Debian/Ubuntu-based system detected. Using apt..."
+        echo "[+] Debian/Ubuntu-based system detected. Using apt..."
         sudo apt update
-        sudo apt install -y python3 python3-venv python3-pip pciutils
+        sudo apt install -y python3 python3-venv pciutils
         ;;
     arch|manjaro|artix|endeavouros|garuda)
-        echo "[*] Arch-based system detected. Using pacman..."
-        sudo pacman -Sy --noconfirm python python-pip pciutils
+        echo "[+] Arch-based system detected. Using pacman..."
+        sudo pacman -Sy --noconfirm python pciutils
         ;;
     fedora|centos|rhel)
-        echo "[*] RHEL/Fedora system detected. Using dnf..."
-        sudo dnf install -y python3 python3-pip pciutils
+        echo "[+] RHEL/Fedora system detected. Using dnf..."
+        sudo dnf install -y python3 pciutils
         ;;
     opensuse*|suse)
-        echo "[*] openSUSE detected. Using zypper..."
-        sudo zypper install -y python3 python3-pip pciutils
+        echo "[+] openSUSE detected. Using zypper..."
+        sudo zypper install -y python3 pciutils
         ;;
     alpine)
-        echo "[*] Alpine Linux detected. Using apk..."
-        sudo apk add python3 py3-pip pciutils
+        echo "[+] Alpine Linux detected. Using apk..."
+        sudo apk add python3 pciutils
         ;;
     gentoo)
-        echo "[*] Gentoo detected. Using emerge..."
-        sudo emerge --ask=n dev-lang/python sys-apps/pciutils
+        echo "[+] Gentoo detected. Using emerge..."
+        sudo emerge -q dev-lang/python sys-apps/pciutils
         ;;
     void)
-        echo "[*] Void Linux detected. Using xbps..."
-        sudo xbps-install -Sy python3 python3-pip pciutils
+        echo "[+] Void Linux detected. Using xbps..."
+        sudo xbps-install -Sy python3 pciutils
         ;;
     solus)
-        echo "[*] Solus detected. Using eopkg..."
+        echo "[+] Solus detected. Using eopkg..."
         sudo eopkg install -y python3 pciutils
         ;;
     freebsd|openbsd)
-        echo "[*] BSD system detected. Using pkg..."
+        echo "[+] BSD system detected. Using pkg..."
         sudo pkg install -y python3 pciutils
         ;;
     *)
         echo "[!] Could not automatically determine the package manager for $DISTRO."
-        echo "[!] Please ensure python3, python3-venv, and pciutils (lspci) are installed manually."
+        echo "[!] Please ensure python3 (with venv) and pciutils (lspci) are installed manually."
         ;;
 esac
 
@@ -79,7 +78,6 @@ if [ ! -f "$MAIN_SCRIPT" ]; then
     echo "[Error] The main file $MAIN_SCRIPT was not found in the current directory!"
     exit 1
 fi
-
 cp *.py "$INSTALL_DIR/"
 
 # If requirements.txt doesn't exist, create it on the fly with known libraries
@@ -94,6 +92,8 @@ fi
 
 # --- 3. Create venv and install Python libraries ---
 echo "[*] Creating virtual environment (venv)..."
+# В Arch 'python' - это уже 3-я версия, но python3 обычно является алиасом. 
+# Вызов python3 безопасен для всех дистрибутивов.
 python3 -m venv "$INSTALL_DIR/venv"
 
 echo "[*] Installing libraries from requirements.txt..."
@@ -117,4 +117,4 @@ echo "========================================"
 echo "You can now run the program by simply typing in your terminal:"
 echo "  $APP_NAME"
 echo ""
-echo "(If the command is not found, make sure ~/.local/bin is added to your \$PATH)"
+echo "(If the command is not found, make sure ~/.local/bin is added to your PATH)"
