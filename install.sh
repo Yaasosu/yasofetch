@@ -90,14 +90,15 @@ else
     echo "uptime" >> "$INSTALL_DIR/requirements.txt"
 fi
 
-# --- 3. Create venv and install Python libraries ---
+# --- 3. Create venv, UPDATE PIP, and install libraries ---
 echo "[*] Creating virtual environment (venv)..."
-# В Arch 'python' - это уже 3-я версия, но python3 обычно является алиасом. 
-# Вызов python3 безопасен для всех дистрибутивов.
 python3 -m venv "$INSTALL_DIR/venv"
 
+echo "[*] Updating pip to the latest version..."
+"$INSTALL_DIR/venv/bin/python" -m pip install --upgrade pip --quiet
+
 echo "[*] Installing libraries from requirements.txt..."
-"$INSTALL_DIR/venv/bin/pip" install -r "$INSTALL_DIR/requirements.txt"
+"$INSTALL_DIR/venv/bin/pip" install -r "$INSTALL_DIR/requirements.txt" --quiet
 
 # --- 4. Create the global command (Wrapper) ---
 echo "[*] Creating the executable wrapper for $APP_NAME..."
@@ -114,7 +115,13 @@ chmod +x "$WRAPPER_SCRIPT"
 echo "========================================"
 echo " Installation successfully completed! 🚀"
 echo "========================================"
-echo "You can now run the program by simply typing in your terminal:"
+echo "You can now run the program by typing:"
 echo "  $APP_NAME"
 echo ""
-echo "(If the command is not found, make sure ~/.local/bin is added to your PATH)"
+
+# Check if ~/.local/bin is in PATH and warn the user if it's not
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "⚠️  WARNING: ~/.local/bin is not in your PATH."
+    echo "To fix 'command not found', run this command once:"
+    echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+fi
