@@ -112,16 +112,46 @@ EOF
 
 chmod +x "$WRAPPER_SCRIPT"
 
+# --- 5. Auto-configure PATH ---
+echo "[*] Checking PATH configuration..."
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "[*] ~/.local/bin is missing from PATH. Attempting to add it..."
+    
+    # Check and update bashrc
+    if [ -f "$HOME/.bashrc" ]; then
+        if ! grep -q "$HOME/.local/bin" "$HOME/.bashrc"; then
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+            echo "  [+] Added to ~/.bashrc"
+        fi
+    fi
+
+    # Check and update zshrc
+    if [ -f "$HOME/.zshrc" ]; then
+        if ! grep -q "$HOME/.local/bin" "$HOME/.zshrc"; then
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
+            echo "  [+] Added to ~/.zshrc"
+        fi
+    fi
+
+    # Check and update fish config
+    if [ -f "$HOME/.config/fish/config.fish" ]; then
+        if ! grep -q "$HOME/.local/bin" "$HOME/.config/fish/config.fish"; then
+            echo 'fish_add_path "$HOME/.local/bin"' >> "$HOME/.config/fish/config.fish"
+            echo "  [+] Added to ~/.config/fish/config.fish"
+        fi
+    fi
+
+    echo ""
+    echo "⚠️  NOTE: To use the command in your CURRENT terminal window, run:"
+    echo "    export PATH=\"\$HOME/.local/bin:\$PATH\""
+    echo "    (Or simply restart your terminal)"
+else
+    echo "  [+] ~/.local/bin is already in your PATH."
+fi
+
 echo "========================================"
 echo " Installation successfully completed! 🚀"
 echo "========================================"
 echo "You can now run the program by typing:"
 echo "  $APP_NAME"
 echo ""
-
-# Check if ~/.local/bin is in PATH and warn the user if it's not
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo "⚠️  WARNING: ~/.local/bin is not in your PATH."
-    echo "To fix 'command not found', run this command once:"
-    echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
-fi
